@@ -23,7 +23,7 @@ RUN set -e \
     && curl -L --retry 5 --retry-delay 5 -o /tmp/vmutils.tar.gz \
         "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/${VM_VERSION}/vmutils-linux-arm64-${VM_VERSION}.tar.gz" \
     && tar -xzf /tmp/vmutils.tar.gz --strip-components=1 \
-    && mv vmagent-prod /usr/local/bin/vmagent \
+    && mv vmagent* /usr/local/bin/vmagent \
     && chmod +x /usr/local/bin/vmagent \
     && rm -rf /tmp/vmutils.tar.gz
 
