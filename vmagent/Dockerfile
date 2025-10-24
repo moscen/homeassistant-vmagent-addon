@@ -10,7 +10,8 @@ ARG BUILD_ARCH
 RUN echo "Building for ${BUILD_ARCH:-unknown} architecture"
 
 # Translate HA arch name -> vmagent arch string
-RUN case "${BUILD_ARCH}" in \
+RUN set -e \
+    && case "${BUILD_ARCH}" in \
       "aarch64"|"armv8"|"rpi4-64") ARCH="arm64" ;; \
       "armv7"|"armhf") ARCH="arm" ;; \
       "amd64") ARCH="amd64" ;; \
@@ -19,9 +20,10 @@ RUN case "${BUILD_ARCH}" in \
     esac \
     && echo "Detected VM architecture: ${ARCH}" \
     && apk add --no-cache curl tar \
-    && curl -L -o /tmp/vmutils.tar.gz \
-       https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/${VM_VERSION}/vmutils-linux-${ARCH}-${VM_VERSION}.tar.gz \
-    && tar -xzf /tmp/vmutils.tar.gz -C /usr/local/bin vmagent \
+    && curl -L --retry 5 --retry-delay 5 -o /tmp/vmutils.tar.gz \
+       "https://codeload.github.com/VictoriaMetrics/VictoriaMetrics/tar.gz/refs/tags/${VM_VERSION}" \
+    && tar -xzf /tmp/vmutils.tar.gz --strip-components=1 \
+    && mv vmagent-prod /usr/local/bin/vmagent \
     && chmod +x /usr/local/bin/vmagent \
     && rm -rf /tmp/vmutils.tar.gz
 
