@@ -1,0 +1,21 @@
+{
+  "name": "VictoriaMetrics vmagent",
+  "version": "1.0.0",
+  "slug": "vmagent",
+  "description": "Run VictoriaMetrics vmagent as a Home Assistant add-on.",
+  "startup": "services",
+  "boot": "auto",
+  "ports": {
+    "8429/tcp": 8429
+  },
+  "map": ["config", "share"],
+  "options": {
+    "remote_write_url": "",
+    "scrape_config": "/config/vmagent_scrape.yml"
+  },
+  "schema": {
+    "remote_write_url": "str?",
+    "scrape_config": "str?"
+  },
+  "image": "ghcr.io/<yourusername>/homeassistant-vmagent-addon-{arch}"
+}

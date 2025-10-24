@@ -1,0 +1,4 @@
+{
+  "remote_write_url": "",
+  "scrape_config": "/config/vmagent_scrape.yml"
+}
