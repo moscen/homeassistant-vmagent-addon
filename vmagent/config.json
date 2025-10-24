@@ -16,6 +16,5 @@
   "schema": {
     "remote_write_url": "str?",
     "scrape_config": "str?"
-  },
-  "image": "ghcr.io/<yourusername>/homeassistant-vmagent-addon-{arch}"
+  }
 }
