@@ -3,7 +3,7 @@ ARG BUILD_FROM=ghcr.io/hassio-addons/base:15.0.7
 FROM ${BUILD_FROM}
 
 # Version of vmagent to install
-ENV VM_VERSION=v1.103.0
+ENV VM_VERSION=v1.126.0
 
 # Pick correct architecture automatically (HA passes BUILD_ARCH)
 ARG BUILD_ARCH
@@ -21,7 +21,7 @@ RUN set -e \
     && echo "Detected VM architecture: ${ARCH}" \
     && apk add --no-cache curl tar \
     && curl -L --retry 5 --retry-delay 5 -o /tmp/vmutils.tar.gz \
-       "https://codeload.github.com/VictoriaMetrics/VictoriaMetrics/tar.gz/refs/tags/${VM_VERSION}" \
+        "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/${VM_VERSION}/vmutils-linux-arm-${VM_VERSION}.tar.gz" \
     && tar -xzf /tmp/vmutils.tar.gz --strip-components=1 \
     && mv vmagent-prod /usr/local/bin/vmagent \
     && chmod +x /usr/local/bin/vmagent \
